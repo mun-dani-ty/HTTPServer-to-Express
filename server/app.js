@@ -4,6 +4,11 @@
 
 // STEP 1: Import and initialize server, configure for JSON requests
 // Your code here
+const express = require('express');
+
+const app = express();
+app.use(express.json());
+const port = 500;
 
 // HTTP Server: Handle route with param (/users/:userId) sending plain-text response
 //     let reqBody = "";
@@ -41,9 +46,22 @@
 // STEP 2: Handle route with param (/users/:userId) sending plain-text response
 // Your code here
 
+app.get("/users/:id", (req, res) => {
+    const id = req.params.id;
+    const user = users[id]
+    //return res.status(200).send(user)
+
+    if (user) {
+        return res.status(200).send(user)
+    } else {
+        return res.status(404).send(`User details for userId: ${id}`)
+    };
+});
+
 // HTTP Server: Set port and listen for requests
 // const port = 5000;
 // server.listen(port, () => console.log('Server is listening on port', port));
 
 // STEP 1: Set port and listen for requests
 // Your code here
+app.listen(port, () => console.log(`Listening on port ${port}`);)
